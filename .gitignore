@@ -1,0 +1,27 @@
+# Node modules
+node_modules/
+**/node_modules/
+
+# Build output
+build/
+client/build/
+server/build/
+
+# Environment files
+.env
+.env.*
+
+# OS junk
+.DS_Store
+Thumbs.db
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Coverage
+coverage/
+
+# Misc
+*.log
