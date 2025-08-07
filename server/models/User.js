@@ -9,6 +9,7 @@ const UserSchema = new mongoose.Schema({
   isSubscribed: { type: Boolean, default: false },
   stripeCustomerId: { type: String },
   subscriptionId: { type: String },
+  watchlist: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Movie' }],
 }, { timestamps: true });
 
 UserSchema.pre('save', async function (next) {

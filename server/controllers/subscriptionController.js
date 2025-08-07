@@ -10,6 +10,32 @@ const PRICES = {
   yearly: 'price_yearly_id',   // replace with your Stripe price ID for yearly
 };
 
+// Get subscription status
+exports.getSubscriptionStatus = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    res.json({ status: user.isSubscribed ? 'active' : 'inactive' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
+// Subscribe user (simplified version without Stripe for now)
+exports.subscribe = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.id);
+    if (!user) return res.status(404).json({ message: 'User not found' });
+    
+    user.isSubscribed = true;
+    await user.save();
+    
+    res.json({ message: 'Subscription activated successfully' });
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+
 exports.createCheckoutSession = async (req, res) => {
   try {
     const { plan } = req.body; // 'monthly' or 'yearly'

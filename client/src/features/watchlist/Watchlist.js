@@ -10,7 +10,7 @@ const Watchlist = () => {
       setLoading(true);
       setError('');
       try {
-        const res = await fetch('/api/movie/watchlist', {
+        const res = await fetch('/api/movies/watchlist', {
           headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
         });
         const data = await res.json();
