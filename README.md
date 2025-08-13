@@ -41,7 +41,7 @@ This project demonstrates core concepts of frontend development, state managemen
 
 ## 📹 Demo Video
 
-
+[![Watch the Demo](https://img.youtube.com/vi/yaimIi8fjQE/0.jpg)](https://www.youtube.com/watch?v=yaimIi8fjQE)
 
 ---
 
