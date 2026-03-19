@@ -1,0 +1,132 @@
+.movie-card-premium {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 2/3;
+  cursor: pointer;
+  border-radius: var(--card-border-radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-premium);
+  background-color: var(--netflix-dark-gray);
+  transition: box-shadow 0.3s ease;
+}
+
+.movie-card-premium:hover {
+  box-shadow: 0 15px 40px rgba(0,0,0,0.8);
+}
+
+.card-image-container {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.top-10-badge-premium {
+  position: absolute;
+  top: 10px;
+  right: -5px;
+  background-color: var(--netflix-red);
+  color: #fff;
+  padding: 4px 12px;
+  font-size: 0.7rem;
+  font-weight: 800;
+  box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+  transform: skewX(-15deg);
+  z-index: 2;
+}
+
+.card-overlay-premium {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.4) 50%, transparent 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding: 15px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  z-index: 3;
+}
+
+.movie-card-premium:hover .card-overlay-premium {
+  opacity: 1;
+}
+
+.overlay-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 15px;
+  justify-content: center;
+}
+
+.overlay-play-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: #000;
+  border: none;
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+  padding-left: 3px;
+}
+
+.overlay-play-btn:hover {
+  transform: scale(1.1);
+  background-color: rgba(255,255,255,0.9);
+}
+
+.overlay-action-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background-color: rgba(255,255,255,0.1);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.5);
+  font-size: 1.2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.overlay-action-btn:hover {
+  border-color: #fff;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.card-title {
+  font-size: 1rem;
+  color: #fff;
+  margin: 0 0 5px 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.card-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.75rem;
+  color: var(--netflix-light-gray);
+}
+
+.card-rating {
+  color: #46d369;
+  font-weight: bold;
+}

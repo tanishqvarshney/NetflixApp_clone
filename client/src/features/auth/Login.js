@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Login = ({ setIsLoggedIn, setUser }) => {
+const Login = ({ onAuthSuccess }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
@@ -14,22 +14,23 @@ const Login = ({ setIsLoggedIn, setUser }) => {
     setLoading(true);
 
     try {
+      const payload = { email, password };
+      console.log('[DEBUG] Login Request Payload:', payload);
+
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
+      console.log('[DEBUG] Login API Response:', data);
 
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setIsLoggedIn(true);
-        setUser(data.user);
-        navigate('/');
+        onAuthSuccess(data.user || data, data.token);
+        navigate('/profiles');
       } else {
-        setError(data.message || 'Login failed');
+        setError(data.message || 'Incorrect email or password.');
       }
     } catch (err) {
       setError('Network error. Please try again.');
@@ -39,80 +40,41 @@ const Login = ({ setIsLoggedIn, setUser }) => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-background">
-        <div className="floating-element element-1"></div>
-        <div className="floating-element element-2"></div>
-        <div className="floating-element element-3"></div>
-      </div>
-      
-      <div className="auth-container">
-        <div className="auth-card">
-          <div className="auth-header">
-            <h1>Welcome Back</h1>
-            <p>Sign in to continue your Netflix journey</p>
+    <div className="premium-auth-container">
+      <div className="premium-auth-card">
+        <h1>Sign In</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="premium-form-group">
+            <input
+              type="email"
+              className="premium-input"
+              placeholder="Email or phone number"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                className="auth-input"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Enter your password"
-                required
-                className="auth-input"
-              />
-            </div>
-
-            {error && (
-              <div className="error-message">
-                <span>⚠️</span>
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              className="auth-button"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <div className="button-spinner"></div>
-                  <span>Signing In...</span>
-                </>
-              ) : (
-                <>
-                  <span>Sign In</span>
-                  <div className="button-arrow">→</div>
-                </>
-              )}
-            </button>
-          </form>
-
-          <div className="auth-footer">
-            <p>New to Netflix?</p>
-            <Link to="/register" className="auth-link">
-              Create an account
-            </Link>
+          <div className="premium-form-group">
+            <input
+              type="password"
+              className="premium-input"
+              placeholder="Password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
           </div>
-        </div>
+          
+          {error && <div style={{ color: '#e87c03', fontSize: '14px', marginBottom: '16px' }}>{error}</div>}
+          
+          <button type="submit" className="premium-auth-btn" disabled={loading}>
+            {loading ? 'Signing In...' : 'Sign In'}
+          </button>
+          
+          <div className="premium-auth-footer">
+            New to Netflix? <Link to="/register">Sign up now.</Link>
+          </div>
+        </form>
       </div>
     </div>
   );

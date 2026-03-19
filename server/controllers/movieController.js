@@ -110,10 +110,35 @@ exports.removeFromWatchlist = async (req, res) => {
 exports.getWatchlist = async (req, res) => {
   try {
     const userId = req.user._id;
-    const user = await User.findById(userId).populate('watchlist');
+    const user = await User.findById(userId);
+    if (user && typeof user.populate === 'function') {
+      user.populate('watchlist');
+    }
     
-    res.json(user.watchlist);
+    res.json(user ? user.watchlist : []);
   } catch (err) {
     res.status(500).json({ message: err.message });
   }
 };
+
+// User: Search movies
+exports.searchMovies = async (req, res) => {
+  console.log('Search query:', req.query.q);
+  try {
+
+    const { q } = req.query;
+    if (!q) return res.json([]);
+
+    const movies = await Movie.find({
+      $or: [
+        { title: { $regex: q, $options: 'i' } },
+        { genre: { $regex: q, $options: 'i' } },
+        { description: { $regex: q, $options: 'i' } }
+      ]
+    });
+    res.json(movies);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
+  }
+};
+

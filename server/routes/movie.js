@@ -9,6 +9,7 @@ const {
   addToWatchlist,
   removeFromWatchlist,
   getWatchlist,
+  searchMovies,
 } = require('../controllers/movieController');
 const { protect, admin } = require('../middleware/auth');
 
@@ -18,7 +19,10 @@ router.put('/:id', protect, admin, updateMovie);
 router.delete('/:id', protect, admin, deleteMovie);
 
 // User routes
+router.get('/search', searchMovies);
 router.get('/', getMovies);
+
+
 
 // Watchlist routes - MUST come before /:id route
 router.get('/watchlist', protect, getWatchlist);

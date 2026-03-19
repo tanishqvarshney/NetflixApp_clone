@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Register = ({ setIsLoggedIn, setUser }) => {
+const Register = ({ onAuthSuccess }) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,22 +16,23 @@ const Register = ({ setIsLoggedIn, setUser }) => {
     setLoading(true);
 
     try {
+      const payload = { name, email, password, dateOfBirth };
+      console.log('[DEBUG] Register Request Payload:', payload);
+
       const res = await fetch('/api/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password, dateOfBirth })
+        body: JSON.stringify(payload)
       });
 
       const data = await res.json();
+      console.log('[DEBUG] Register API Response:', data);
 
       if (res.ok) {
-        localStorage.setItem('token', data.token);
-        localStorage.setItem('user', JSON.stringify(data.user));
-        setIsLoggedIn(true);
-        setUser(data.user);
-        navigate('/');
+        onAuthSuccess(data.user || data, data.token);
+        navigate('/profiles');
       } else {
-        setError(data.message || 'Registration failed');
+        setError(data.message || 'Registration failed. Please try again.');
       }
     } catch (err) {
       setError('Network error. Please try again.');
@@ -41,105 +42,62 @@ const Register = ({ setIsLoggedIn, setUser }) => {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-background">
-        <div className="floating-element element-1"></div>
-        <div className="floating-element element-2"></div>
-        <div className="floating-element element-3"></div>
-      </div>
-      
-      <div className="auth-container">
-        <div className="auth-card">
-          <div className="auth-header">
-            <h1>Join Netflix</h1>
-            <p>Create your account to start streaming</p>
+    <div className="premium-auth-container">
+      <div className="premium-auth-card">
+        <h1>Sign Up</h1>
+        <form onSubmit={handleSubmit}>
+          <div className="premium-form-group">
+            <input
+              type="text"
+              className="premium-input"
+              placeholder="Full Name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              required
+            />
           </div>
-
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-group">
-              <label htmlFor="name">Full Name</label>
-              <input
-                type="text"
-                id="name"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Enter your full name"
-                required
-                className="auth-input"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="Enter your email"
-                required
-                className="auth-input"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                placeholder="Create a password"
-                required
-                className="auth-input"
-              />
-            </div>
-
-            <div className="form-group">
-              <label htmlFor="dateOfBirth">Date of Birth</label>
-              <input
-                type="date"
-                id="dateOfBirth"
-                value={dateOfBirth}
-                onChange={(e) => setDateOfBirth(e.target.value)}
-                required
-                className="auth-input"
-              />
-            </div>
-
-            {error && (
-              <div className="error-message">
-                <span>⚠️</span>
-                {error}
-              </div>
-            )}
-
-            <button 
-              type="submit" 
-              className="auth-button"
-              disabled={loading}
-            >
-              {loading ? (
-                <>
-                  <div className="button-spinner"></div>
-                  <span>Creating Account...</span>
-                </>
-              ) : (
-                <>
-                  <span>Create Account</span>
-                  <div className="button-arrow">→</div>
-                </>
-              )}
-            </button>
-          </form>
-
-          <div className="auth-footer">
-            <p>Already have an account?</p>
-            <Link to="/login" className="auth-link">
-              Sign in
-            </Link>
+          <div className="premium-form-group">
+            <input
+              type="email"
+              className="premium-input"
+              placeholder="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+            />
           </div>
-        </div>
+          <div className="premium-form-group">
+            <input
+              type="password"
+              className="premium-input"
+              placeholder="Add a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+          </div>
+          <div className="premium-form-group">
+            <input
+              type="date"
+              className="premium-input"
+              placeholder="Date of Birth"
+              value={dateOfBirth}
+              onChange={(e) => setDateOfBirth(e.target.value)}
+              required
+              style={{ color: '#737373' }}
+            />
+          </div>
+          
+          {error && <div style={{ color: '#e87c03', fontSize: '14px', marginBottom: '16px' }}>{error}</div>}
+          
+          <button type="submit" className="premium-auth-btn" disabled={loading}>
+            {loading ? 'Creating Account...' : 'Sign Up'}
+          </button>
+          
+          <div className="premium-auth-footer">
+            Already have an account? <Link to="/login">Sign in now.</Link>
+          </div>
+        </form>
       </div>
     </div>
   );
