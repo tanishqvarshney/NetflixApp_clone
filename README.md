@@ -7,6 +7,9 @@ A full-stack Netflix clone built with modern web technologies, featuring user au
 ![Node.js](https://img.shields.io/badge/Node.js-Express-green?style=for-the-badge&logo=node.js)
 ![MongoDB](https://img.shields.io/badge/MongoDB-8.17.0-green?style=for-the-badge&logo=mongodb)
 
+## 📸 Visual Walkthrough
+View the [**Full Premium UI Walkthrough**](./WALKTHROUGH.md) to see the high-fidelity screenshots, interactive animations, and production verification recordings.
+
 ## ✨ Features
 
 ### 🎭 Movie Management
