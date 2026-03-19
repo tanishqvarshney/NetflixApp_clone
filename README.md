@@ -8,7 +8,20 @@ A full-stack Netflix clone built with modern web technologies, featuring user au
 ![MongoDB](https://img.shields.io/badge/MongoDB-8.17.0-green?style=for-the-badge&logo=mongodb)
 
 ## 📸 Visual Walkthrough
-View the [**Full Premium UI Walkthrough**](./WALKTHROUGH.md) to see the high-fidelity screenshots, interactive animations, and production verification recordings.
+View the [**Full Premium UI Walkthrough**](./WALKTHROUGH.md) for more details.
+
+### **Landing Page (Home Feed)**
+![Landing Page - Game of Thrones Hero](./media/home.png)
+
+### **Dedicated Sections (TV Shows & Movies)**
+![TV Shows Section - Game of Thrones Hero](./media/tv_shows.png)
+![Movies Section - Dune: Part Two Hero](./media/movies.png)
+
+### **Standardized Search Grid (60px Gutter)**
+![Standardized Search Grid (60px Gutter)](./media/search.png)
+
+### **Production Verification**
+![Final Production Verification](./media/verification.webp)
 
 ## ✨ Features
 
