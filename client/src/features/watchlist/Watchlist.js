@@ -1,7 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, Link } from 'react-router-dom';
-import { getMoviePoster, handleImageError } from '../../utils/imageUtils';
+import { motion, AnimatePresence } from 'framer-motion';
+import { getMoviePoster } from '../../utils/imageUtils';
 import MovieModal from '../movies/MovieModal';
+import MovieCard from '../../components/MovieCard/MovieCard';
+import './Watchlist.css';
 
 const Watchlist = () => {
   const [movies, setMovies] = useState([]);
@@ -47,51 +50,60 @@ const Watchlist = () => {
     }
   };
 
-  if (loading) return <div className="loading">Loading your list...</div>;
+  const handlePlay = (id) => {
+    navigate(`/movie/${id}?play=true`);
+  };
+
+  if (loading) return <div className="loading"><div className="netflix-spinner"></div></div>;
   if (error) return <div className="error">{error}</div>;
 
   return (
-    <div className="watchlist-page" style={{ paddingTop: '100px', minHeight: '100vh', padding: '100px 4% 0' }}>
-      <h1 style={{ marginBottom: '30px', fontSize: '2rem' }}>My List</h1>
+    <div className="watchlist-container">
+      <div className="watchlist-header">
+        <h1>My List</h1>
+      </div>
       
-      {movies.length === 0 ? (
-        <div className="no-results" style={{ textAlign: 'center', marginTop: '100px' }}>
-          <p style={{ color: '#808080', fontSize: '1.2rem' }}>You haven't added anything to your list yet.</p>
-          <Link to="/" style={{ color: '#e50914', textDecoration: 'none', marginTop: '20px', display: 'inline-block' }}>Explore Movies</Link>
-        </div>
-      ) : (
-        <div className="movie-grid" style={{ 
-          display: 'grid', 
-          gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', 
-          gap: '30px 10px' 
-        }}>
-          {movies.map(movie => (
-            <div key={movie._id} className="movie-card" onClick={() => setSelectedMovie({ ...movie, poster: getMoviePoster(movie) })}>
-              <div className="movie-poster">
-                <img 
-                  src={getMoviePoster(movie)} 
-                  alt={movie.title} 
-                  onError={(e) => handleImageError(e, movie.title)}
-                />
-                <div className="movie-overlay">
-                  <button className="play-icon" onClick={(e) => { e.stopPropagation(); navigate(`/movie/${movie._id}?play=true`); }}>▶</button>
-                  <button className="remove-btn" onClick={(e) => { e.stopPropagation(); handleRemove(movie._id); }}>-</button>
-                </div>
-              </div>
-              <div className="movie-info">
-                <h3>{movie.title}</h3>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
+      <AnimatePresence mode="wait">
+        {movies.length === 0 ? (
+          <motion.div 
+            key="empty"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0 }}
+            className="no-results-container"
+          >
+            <div className="no-results-icon" style={{ fontSize: '4rem', marginBottom: '20px' }}>📋</div>
+            <p className="no-results-text">You haven't added anything to your list yet. Start exploring to build your collection!</p>
+            <Link to="/" className="explore-btn">Explore Movies</Link>
+          </motion.div>
+        ) : (
+          <motion.div 
+            key="grid"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="watchlist-grid"
+          >
+            {movies.map(movie => (
+              <MovieCard 
+                key={movie._id} 
+                movie={movie} 
+                onSelect={(m) => setSelectedMovie({ ...m, poster: getMoviePoster(m) })}
+                onRemove={handleRemove}
+                inWatchlist={true}
+                onAdd={() => {}} // Not needed here as it's already in watchlist
+              />
+            ))}
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <MovieModal 
         movie={selectedMovie} 
         onClose={() => setSelectedMovie(null)}
         inWatchlist={true}
         onRemove={handleRemove}
-        onPlay={(id) => navigate(`/movie/${id}?play=true`)}
+        onPlay={handlePlay}
+        onAdd={() => {}}
       />
     </div>
   );

@@ -1,0 +1,74 @@
+.watchlist-container {
+  min-height: 100vh;
+  padding-top: var(--navbar-height);
+  background-color: var(--netflix-black);
+  padding: calc(var(--navbar-height) + 40px) var(--netflix-gutter) 50px;
+}
+
+.watchlist-header {
+  margin-bottom: 40px;
+}
+
+.watchlist-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+.watchlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 40px 15px;
+}
+
+.no-results-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 15vh;
+  text-align: center;
+}
+
+.no-results-icon {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.no-results-text {
+  font-size: 1.2rem;
+  color: var(--netflix-light-gray);
+  margin-bottom: 30px;
+  max-width: 400px;
+}
+
+.explore-btn {
+  background-color: var(--netflix-red);
+  color: #fff;
+  padding: 12px 30px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition-smooth);
+}
+
+.explore-btn:hover {
+  background-color: #f40612;
+  transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+  .watchlist-container {
+    padding: calc(var(--navbar-height) + 20px) 20px 50px;
+  }
+  
+  .watchlist-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .watchlist-grid {
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 20px 10px;
+  }
+}

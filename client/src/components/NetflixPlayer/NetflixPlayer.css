@@ -1,0 +1,313 @@
+.netflix-player-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  z-index: 9999;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  color: white;
+  font-family: 'Netflix Sans', 'Inter', -apple-system, sans-serif;
+  cursor: none;
+}
+
+.netflix-player-container.show-cursor {
+  cursor: auto;
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.player-controls-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%),
+              linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.9) 100%);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 50px;
+  opacity: 0;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.player-controls-overlay.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Center Controls Fix */
+.center-controls {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 100px;
+  width: 100%;
+  pointer-events: none;
+}
+
+.center-btn {
+  background: rgba(0,0,0,0.4);
+  border: none;
+  color: white;
+  cursor: pointer;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: all;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(8px);
+  position: relative;
+}
+
+.center-btn.main {
+  width: 120px;
+  height: 120px;
+  font-size: 50px;
+  background: rgba(255,255,255,0.1);
+}
+
+.center-btn.secondary {
+  width: 80px;
+  height: 80px;
+  font-size: 40px;
+}
+
+.center-btn:hover {
+  background: rgba(255,255,255,0.2);
+  transform: scale(1.1);
+}
+
+.skip-icon {
+  font-size: 45px;
+  line-height: 1;
+}
+
+.skip-label {
+  position: absolute;
+  font-size: 14px;
+  font-weight: 800;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -40%);
+}
+
+/* Video Error Overlay */
+.video-error-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10001;
+}
+
+.error-content {
+  text-align: center;
+  max-width: 400px;
+  padding: 40px;
+}
+
+.error-icon {
+  font-size: 60px;
+  margin-bottom: 20px;
+}
+
+.error-content h2 {
+  font-size: 28px;
+  margin-bottom: 15px;
+}
+
+.error-content p {
+  color: #b3b3b3;
+  margin-bottom: 30px;
+  line-height: 1.5;
+}
+
+.error-back-btn {
+  background: #fff;
+  color: #000;
+  border: none;
+  padding: 12px 30px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+/* Header & Bottom */
+.player-header {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.player-back-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  padding: 10px;
+}
+
+.player-movie-title {
+  font-size: 28px;
+  font-weight: 700;
+}
+
+.player-bottom-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.seek-bar-container {
+  width: 100%;
+  height: 4px;
+  background: rgba(255,255,255,0.25);
+  position: relative;
+  cursor: pointer;
+}
+
+.seek-bar-progress {
+  height: 100%;
+  background: #e50914;
+}
+
+.seek-bar-handle {
+  width: 16px;
+  height: 16px;
+  background: #e50914;
+  border-radius: 50%;
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.control-buttons-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.left-controls, .right-controls {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+}
+
+.control-btn {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-size: 28px;
+}
+
+.time-display {
+  font-size: 16px;
+  color: #e5e5e5;
+}
+
+/* Subscription Gate Final Polish */
+.subscription-gate-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+
+.gate-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(15px) brightness(0.4);
+}
+
+.gate-content {
+  position: relative;
+  max-width: 550px;
+  width: 90%;
+  background: rgba(0,0,0,0.85);
+  border-radius: 8px;
+  padding: 60px 40px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 0 40px rgba(0,0,0,0.8);
+}
+
+.gate-title {
+  font-size: 42px;
+  font-weight: 800;
+  margin-bottom: 25px;
+  letter-spacing: -0.5px;
+}
+
+.gate-text {
+  font-size: 18px;
+  line-height: 1.5;
+  color: #efefef;
+  margin-bottom: 40px;
+}
+
+.gate-action-btn {
+  background: #e50914;
+  color: white;
+  border: none;
+  padding: 20px 0;
+  width: 100%;
+  font-size: 22px;
+  font-weight: 700;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.gate-action-btn:hover {
+  background: #f40612;
+}
+
+.gate-cancel-link {
+  display: inline-block;
+  margin-top: 35px;
+  color: #b3b3b3;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border-bottom: 1px solid transparent;
+}
+
+.gate-cancel-link:hover {
+  color: #fff;
+  border-bottom-color: #fff;
+}

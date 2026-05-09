@@ -5,7 +5,7 @@ const getPlaceholder = (text) => `https://via.placeholder.com/500x750?text=${enc
 
 export const getMoviePoster = (movie) => {
   if (movie?.poster_path) {
-    if (movie.poster_path.startsWith('http')) return movie.poster_path;
+    if (movie.poster_path.startsWith('http') || movie.poster_path.startsWith('/images/')) return movie.poster_path;
     return `${TMDB_BASE_URL}${movie.poster_path}`;
   }
   return getPlaceholder(movie?.title);
@@ -13,7 +13,7 @@ export const getMoviePoster = (movie) => {
 
 export const getMovieBackdrop = (movie) => {
   if (movie?.backdrop_path) {
-    if (movie.backdrop_path.startsWith('http')) return movie.backdrop_path;
+    if (movie.backdrop_path.startsWith('http') || movie.backdrop_path.startsWith('/images/')) return movie.backdrop_path;
     return `${TMDB_BACKDROP_BASE}${movie.backdrop_path}`;
   }
   return `https://via.placeholder.com/1920x1080?text=${encodeURIComponent(movie?.title || 'Backdrop Missing')}`;
