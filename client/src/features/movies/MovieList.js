@@ -106,7 +106,9 @@ const MovieList = ({ profile, contentType }) => {
   
   const featuredMovie = contentType === 'movie'
     ? (filteredMovies.find(m => m.title === 'Dune: Part Two') || filteredMovies[0])
-    : (filteredMovies.find(m => m.title === 'Game of Thrones') || filteredMovies[0]);
+    : (contentType === 'tvshow' 
+        ? (filteredMovies.find(m => m.title === 'The Witcher') || filteredMovies[0])
+        : (filteredMovies.find(m => m.title === 'Game of Thrones') || filteredMovies[0]));
 
   const MovieRow = ({ title, items }) => {
     const rowRef = useRef(null);
@@ -162,9 +164,9 @@ const MovieList = ({ profile, contentType }) => {
       )}
 
       <div className="movie-rows-container">
-        {boredonBusters.length > 0 && <MovieRow title="Boredom Busters" items={boredonBusters} />}
+        {boredonBusters.length > 0 && <MovieRow title={contentType === 'tvshow' ? "Top TV Shows" : (contentType === 'movie' ? "Top Movies" : "Boredom Busters")} items={boredonBusters} />}
         {continueWatching.length > 0 && <MovieRow title={`Continue Watching for ${profile?.name || 'User'}`} items={continueWatching} />}
-        {youngAdult.length > 0 && <MovieRow title="Young Adult Movies & Shows" items={youngAdult} />}
+        {youngAdult.length > 0 && <MovieRow title={contentType === 'tvshow' ? "Young Adult TV Shows" : (contentType === 'movie' ? "Young Adult Movies" : "Young Adult Movies & Shows")} items={youngAdult} />}
         {trendingNow.length > 0 && <MovieRow title="Today's Top Picks for You" items={trendingNow} />}
       </div>
 

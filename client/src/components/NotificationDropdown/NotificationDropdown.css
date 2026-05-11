@@ -1,0 +1,123 @@
+.notification-dropdown {
+  position: absolute;
+  top: 50px;
+  right: -10px;
+  width: 400px;
+  background: rgba(0, 0, 0, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-top: 2px solid #fff;
+  z-index: 1000;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  animation: slideIn 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdown-arrow {
+  position: absolute;
+  top: -10px;
+  right: 15px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-bottom: 10px solid #fff;
+}
+
+.dropdown-content {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-item {
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  gap: 15px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  transition: background 0.3s ease;
+  position: relative;
+  cursor: pointer;
+}
+
+.notification-item:hover {
+  background: rgba(255, 255, 255, 0.05);
+}
+
+.notification-item.new {
+  background: rgba(229, 9, 20, 0.05);
+}
+
+.notif-img {
+  width: 100px;
+  height: 56px;
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+.notif-info {
+  flex: 1;
+}
+
+.notif-title {
+  margin: 0;
+  font-size: 14px;
+  color: #fff;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.notif-time {
+  font-size: 12px;
+  color: #808080;
+  margin-top: 4px;
+  display: block;
+}
+
+.new-indicator {
+  width: 8px;
+  height: 8px;
+  background: #e50914;
+  border-radius: 50%;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropdown-footer {
+  padding: 15px;
+  text-align: center;
+  font-size: 13px;
+  color: #808080;
+  cursor: pointer;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.dropdown-footer:hover {
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Custom scrollbar */
+.dropdown-content::-webkit-scrollbar {
+  width: 4px;
+}
+
+.dropdown-content::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dropdown-content::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}

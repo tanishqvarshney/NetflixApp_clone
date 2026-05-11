@@ -939,21 +939,23 @@ html, body {
   min-height: 100vh;
   background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), 
               url('https://wallpapercave.com/wp/wp14818830.webp') no-repeat center center/cover;
-
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 80px 20px;
+  position: relative;
 }
 
 .premium-auth-card {
   background: rgba(0, 0, 0, 0.75);
-  border-radius: 4px;
+  border-radius: 8px;
   width: 100%;
   max-width: 450px;
   min-height: 600px;
-  padding: 60px;
+  padding: 60px 68px 40px;
   box-sizing: border-box;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  backdrop-filter: blur(5px);
 }
 
 .premium-auth-card h1 {
@@ -965,24 +967,30 @@ html, body {
 
 .premium-form-group {
   margin-bottom: 16px;
+  position: relative;
 }
 
 .premium-input {
   background: #333;
   border-radius: 4px;
-  border: none;
+  border: 1px solid transparent;
   color: #fff;
   height: 50px;
-  line-height: 50px;
   padding: 0 20px;
   width: 100%;
   box-sizing: border-box;
   font-size: 16px;
+  transition: background 0.2s ease, border-color 0.2s ease;
 }
 
 .premium-input:focus {
   background: #454545;
   outline: none;
+  border-bottom: 2px solid #e87c03;
+}
+
+.premium-input::placeholder {
+  color: #8c8c8c;
 }
 
 .premium-auth-btn {
@@ -996,18 +1004,22 @@ html, body {
   padding: 16px;
   width: 100%;
   cursor: pointer;
-  transition: background 0.2s ease;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
 
 .premium-auth-btn:hover {
   background: #f40612;
 }
 
+.premium-auth-btn:active {
+  transform: scale(0.98);
+}
+
 .premium-auth-footer {
   color: #737373;
   font-size: 16px;
   font-weight: 400;
-  margin-top: 16px;
+  margin-top: 25px;
 }
 
 .premium-auth-footer a {

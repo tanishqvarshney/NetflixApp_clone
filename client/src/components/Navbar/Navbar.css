@@ -30,15 +30,29 @@
   }
 }
 
+.auth-links {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.auth-links .nav-link {
+  font-weight: 600;
+  color: #fff;
+}
+
 .register-btn {
   background-color: var(--netflix-red);
-  padding: 5px 15px;
-  border-radius: 4px;
-  font-weight: bold;
+  padding: 7px 18px;
+  border-radius: 3px;
+  font-weight: 600;
+  color: #fff !important;
+  transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .register-btn:hover {
   background-color: #f40612;
+  transform: scale(1.05);
 }
 
 .nav-right {
@@ -51,6 +65,10 @@
   display: flex;
   align-items: center;
   gap: 15px;
+}
+
+.notification-wrapper {
+  position: relative;
 }
 
 .search-icon-btn, .notification-icon-btn {
